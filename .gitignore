@@ -1,0 +1,29 @@
+# Arquivos de Dependências
+vendor/
+node_modules/
+
+# Arquivos gerados pelo Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambientes virtuais
+venv/
+*.env
+.env
+
+# Arquivos de dados que não devem ir para o repositório
+*.csv
+*.parquet
+*.json
+*.sqlite
+*.db
+
+# Arquivos de log e do sistema
+*.log
+.DS_Store
+
+# Arquivos de configuração de IDEs
+.vscode/
+.idea/
