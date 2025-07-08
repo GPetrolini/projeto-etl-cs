@@ -1,16 +1,14 @@
-version: '3.8'
 
 services:
-  # Serviço PHP
   php-app:
     build:
       context: ./php
       dockerfile: Dockerfile
     container_name: php_app_cs
     ports:
-      - "8080:80" # Expõe a porta 80 do contêiner na porta 8080 da sua máquina
+      - "8080:80"
     volumes:
-      - ./php/src:/var/www/html # Mapeia a pasta src do PHP para dentro do contêiner
+      - ./php/src:/var/www/html
     networks:
       - app-network
 
@@ -21,9 +19,9 @@ services:
       dockerfile: Dockerfile
     container_name: python_api_cs
     ports:
-      - "8000:8000" # Expõe a porta 8000 do contêiner na porta 8000 da sua máquina
+      - "8000:8000"
     volumes:
-      - ./python/src:/app # Mapeia a pasta src do Python para dentro do contêiner
+      - ./python/src:/app
     networks:
       - app-network
 

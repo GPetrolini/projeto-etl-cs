@@ -1,11 +1,16 @@
-# Usar a imagem oficial do PHP com o servidor Apache
+FROM composer:lts as composer
+
 FROM php:8.2-apache
 
+RUN apt-get update && apt-get install -y \
+    git \
+    zip \
+    unzip \
+    libzip-dev \
+    && docker-php-ext-install -j$(nproc) pdo pdo_mysql zip
 
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Habilitar o mod_rewrite do Apache para URLs amigáveis (boa prática)
 RUN a2enmod rewrite
 
-# Copiar o código da aplicação para o diretório do Apache
-COPY ./src /var/www/html/
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
