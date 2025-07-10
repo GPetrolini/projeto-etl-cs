@@ -10,6 +10,6 @@ def read_root():
 
     dfColunas['kd_ratio'] = (dfColunas['kill_count'] / dfColunas['death_count'].replace(0,1)).round(2)
 
-    primeiras_linhas = df.head(5)
+    primeiras_linhas = dfColunas.head(5)
     resultado = primeiras_linhas.to_dict('records')
     return resultado 
