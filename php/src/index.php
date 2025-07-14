@@ -13,6 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apiService = new ApiService();
 
     $data = $apiService->getPlayerData();
+
+    if($data === null) {
+        $errorMessage = "A API retornou um erro, arquivo está com coluna faltando";
+    }
 }
 
 require 'view.php';
