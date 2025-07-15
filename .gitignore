@@ -19,6 +19,7 @@ venv/
 *.json
 *.sqlite
 *.db
+mysql-data/
 
 # Arquivos de log e do sistema
 *.log
