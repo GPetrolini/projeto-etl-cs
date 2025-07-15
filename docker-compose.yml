@@ -22,6 +22,8 @@ services:
       - ./python/src:/app
     networks:
       - app-network
+    env_file:
+      - .env
 
   db:
     image: mysql:8.0
@@ -29,6 +31,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
