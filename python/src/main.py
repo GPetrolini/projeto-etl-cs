@@ -21,6 +21,13 @@ def read_root():
 
     dfColunas = df[Colunas].copy()
     dfColunas['kd_ratio'] = (dfColunas['kill_count'] / dfColunas['death_count'].replace(0, 1)).round(2)
+    dfColunas.fillna(0, inplace=True)
+    dfColunas['impact_score'] = (
+        (dfColunas['kill_count'] * 2) +
+        (dfColunas['assist_count'] * 1) -
+        (dfColunas['death_count'] * 1.5) +
+        (dfColunas['headshot_count'] * 0.5)
+    ).round(2)
 
     try:
         db_password = os.getenv('DB_PASSWORD')
