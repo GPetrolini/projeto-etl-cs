@@ -50,7 +50,7 @@ final class ApiService
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log("Erro de conexão com o banco: " . $e->getMessage());
-            return [];
+            return null;
         }
     }
 }

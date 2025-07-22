@@ -10,6 +10,10 @@ services:
       - ./php/src:/var/www/html
     networks:
       - app-network
+    depends_on:
+      - db
+    env_file:
+      - .env
 
   python-api:
     build:
@@ -24,6 +28,8 @@ services:
       - app-network
     env_file:
       - .env
+    depends_on:
+      - db
 
   db:
     image: mysql:8.0

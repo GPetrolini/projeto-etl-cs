@@ -43,7 +43,7 @@
                             <th><?php echo PlayerStatsConstants::ASSIST_COUNT_LABEL; ?></th>
                             <th><?php echo PlayerStatsConstants::HEADSHOT_COUNT_LABEL; ?></th>
                             <th><?php echo PlayerStatsConstants::KD_RATIO_LABEL; ?></th>
-                            <th>Score</th>
+                            <th><?php echo PlayerStatsConstants::IMPACT_SCORE_LABEL; ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::ASSIST_COUNT]); ?></td>
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::HEADSHOT_COUNT]); ?></td>
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::KD_RATIO]); ?></td>
-                                <td><?php echo htmlspecialchars($jogador['impact_score']); ?></td>
+                                <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::IMPACT_SCORE]); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

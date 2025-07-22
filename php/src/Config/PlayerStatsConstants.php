@@ -29,4 +29,8 @@ final class PlayerStatsConstants
     public const KD_RATIO = 'kd_ratio';
 
     public const KD_RATIO_LABEL = 'K/D Ratio';
+
+    public const IMPACT_SCORE = 'impact_score';
+    
+    public const IMPACT_SCORE_LABEL = 'Score';
 }
