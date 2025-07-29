@@ -24,7 +24,7 @@ final class ApiService
     public function rodarEtl(): ?array
     {
         try {
-            $response = $this->client->request('GET', 'http://python-api:8000');
+            $response = $this->client->request('POST', 'http://python-api:8000/etl');
 
             $body = $response->getBody()->getContents();
 
