@@ -70,3 +70,26 @@ def get_players():
         return df.to_dict('records')
     except SQLAlchemyError as e:
         raise HTTPException(status_code=404, detail=f"Não foi possível buscar os dados da tabela 'player_stats': {e}")
+
+@app.get("/teams/performance")
+def get_teams_performance():
+    """
+    NOVO ENDPOINT: Analisa e retorna a performance média por time.
+    """
+    try:
+        engine = get_db_engine()
+        query = "SELECT * FROM player_stats"
+        df = pd.read_sql(query, engine)
+
+        team_performance = df.groupby('team_name')[['kd_ratio', 'impact_score']].mean()
+        
+        team_performance = team_performance.round(2)
+
+        team_performance = team_performance.sort_values(by='impact_score', ascending=False)
+        
+        team_performance = team_performance.reset_index()
+
+        return team_performance.to_dict('records')
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro ao analisar a performance dos times: {e}")

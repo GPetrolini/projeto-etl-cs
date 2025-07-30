@@ -38,18 +38,15 @@ final class ApiService
 
     public function pegaPlayersDoBancoDeDados(): ?array
     {
-        $host = $_ENV['DB_HOST'] ?? 'db';
-        $dbNome = $_ENV['MYSQL_DATABASE'] ?? 'cs_data';
-        $usuario = 'root';
-        $senha = $_ENV['DB_PASSWORD'] ?? '';
-        $dsn = "mysql:host={$host};dbname={$dbNome};charset=utf8";
-
         try {
-            $pdo = new PDO ($dsn, $usuario, $senha);
-            $stmt = $pdo->query("SELECT * FROM player_stats ORDER BY impact_score DESC");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            error_log("Erro de conexão com o banco: " . $e->getMessage());
+            $response = $this->client->request('GET', 'http://python-api:8000/players');
+            
+            $body = $response->getBody()->getContents();
+            
+            return json_decode($body, true);
+
+        } catch (Exception $e) {
+            error_log("Erro ao buscar dados da API de players: " . $e->getMessage());
             return null;
         }
     }
