@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <h1>Pipeline de Dados - CS</h1>
+        <p><a href="teams.php" class="btn">Ver Análise de Performance por Time &rarr;</a></p>
         <p>Clique no botão abaixo para atualizar os dados do banco de dados.</p>
         
         <form action="index.php" method="post">
@@ -29,6 +30,12 @@
                 <pre><?php echo htmlspecialchars($successMessage); ?></pre>
             </div>
         <?php endif; ?>
+        <div class="search-container">
+            <form action="index.php" method="get">
+                <input type="text" name="search" class="search-input" placeholder="Buscar por nome do jogador..." value="<?php echo htmlspecialchars($searchTerm ?? ''); ?>">
+                <button type="submit" class="btn">Buscar</button>
+            </form>
+        </div>
 
         <div class="table-container">
             <h2>Estatísticas dos Jogadores</h2>

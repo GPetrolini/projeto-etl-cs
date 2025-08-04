@@ -24,7 +24,7 @@ def get_db_engine():
 
 @app.post("/etl")
 def run_etl():
-    # Este endpoint executa todo o processo de ETL
+    # executa todo o processo de ETL
     try:
         df = pd.read_csv('Player_Kills.csv')
     except FileNotFoundError:
@@ -59,12 +59,15 @@ def run_etl():
     return {"message": f"ETL concluído! {len(dfColunas)} linhas carregadas na tabela '{tabela_destino}'."}
 
 @app.get("/players")
-def get_players():
-    # Este endpoint busca e retorna todos os jogadores do banco de dados
+def get_players(search_name:  str | None = None):
+    # busca e retorna todos os jogadores do banco de dados
     try:
         eng = get_db_engine()
         query = "SELECT * FROM player_stats ORDER BY impact_score DESC"
         df = pd.read_sql(query, eng)
+
+        if search_name:
+            df = df[df['name'].str.contains(search_name, case=False, na=False)]
         
         # Converte o resultado para um formato JSON amigável
         return df.to_dict('records')
@@ -73,9 +76,6 @@ def get_players():
 
 @app.get("/teams/performance")
 def get_teams_performance():
-    """
-    NOVO ENDPOINT: Analisa e retorna a performance média por time.
-    """
     try:
         engine = get_db_engine()
         query = "SELECT * FROM player_stats"

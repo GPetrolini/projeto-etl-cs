@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 session_start();
@@ -12,7 +11,6 @@ use App\Service\ApiService;
 $apiService = new ApiService();
 $errorMessage = null;
 $successMessage = null;
-$data = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = $apiService->rodarEtl();
@@ -20,11 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($response === null) {
         $_SESSION['flash_message'] = ['type' => 'error', 'text' => 'A API de ETL retornou um erro.'];
     } else {
-        $freshData = $apiService->pegaPlayersDoBancoDeDados();
         $_SESSION['flash_message'] = [
             'type' => 'success', 
-            'text' => $response['message'] ?? 'Dados atualizados!',
-            'data' => $freshData
+            'text' => $response['message'] ?? 'Dados atualizados com sucesso!'
         ];
     }
     
@@ -37,11 +33,14 @@ if (isset($_SESSION['flash_message'])) {
         $errorMessage = $_SESSION['flash_message']['text'];
     } else {
         $successMessage = $_SESSION['flash_message']['text'];
-        $data = $_SESSION['flash_message']['data'];
     }
     unset($_SESSION['flash_message']);
-} else {
-    $data = $apiService->pegaPlayersDoBancoDeDados();
+}
+$searchTerm = $_GET['search'] ?? '';
+
+$data = $apiService->pegaPlayersDoBancoDeDados($searchTerm);
+if ($data === null) {
+    $errorMessage = "Não foi possível buscar os dados da API de jogadores.";
 }
 
 require 'view.php';
