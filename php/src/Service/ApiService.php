@@ -25,16 +25,22 @@ final class ApiService
             return null;
         }
     }
-
-    // Dentro da classe ApiService, substitua o método antigo por este:
-public function pegaPlayersDoBancoDeDados(string $searchTerm = ''): ?array
+    
+public function pegaPlayersDoBancoDeDados(string $searchTerm = '', int $page = 1): ?array
 {
     try {
         $url = 'http://python-api:8000/players';
-
-        // Se um termo de busca foi fornecido, adiciona-o à URL
+        
+        $queryParams = [];
         if (!empty($searchTerm)) {
-            $url .= '?search_name=' . urlencode($searchTerm);
+            $queryParams['search_name'] = $searchTerm;
+        }
+        if ($page > 1) {
+            $queryParams['page'] = $page;
+        }
+
+        if (!empty($queryParams)) {
+            $url .= '?' . http_build_query($queryParams);
         }
 
         $response = $this->client->request('GET', $url);

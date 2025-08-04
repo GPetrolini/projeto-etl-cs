@@ -30,15 +30,17 @@
                 <pre><?php echo htmlspecialchars($successMessage); ?></pre>
             </div>
         <?php endif; ?>
-        <div class="search-container">
-            <form action="index.php" method="get">
-                <input type="text" name="search" class="search-input" placeholder="Buscar por nome do jogador..." value="<?php echo htmlspecialchars($searchTerm ?? ''); ?>">
-                <button type="submit" class="btn">Buscar</button>
-            </form>
-        </div>
 
         <div class="table-container">
             <h2>Estatísticas dos Jogadores</h2>
+            
+            <div class="search-container">
+                <form action="index.php" method="get">
+                    <input type="text" name="search" class="search-input" placeholder="Buscar por nome do jogador..." value="<?php echo htmlspecialchars($searchTerm ?? ''); ?>">
+                    <button type="submit" class="btn">Buscar</button>
+                </form>
+            </div>
+
             <?php if (isset($data) && !empty($data)): ?>
                 <table class="data-table"> 
                     <thead>
@@ -68,8 +70,19 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            
+                <div class="pagination-container">
+                    <?php if ($currentPage > 1): ?>
+                        <a href="index.php?page=<?php echo $currentPage - 1; ?>&search=<?php echo urlencode($searchTerm ?? ''); ?>" class="btn">&larr; Anterior</a>
+                    <?php endif; ?>
+
+                    <?php if (count($data) >= 10): ?>
+                        <a href="index.php?page=<?php echo $currentPage + 1; ?>&search=<?php echo urlencode($searchTerm ?? ''); ?>" class="btn">Próxima &rarr;</a>
+                    <?php endif; ?>
+                </div>
+
             <?php else: ?>
-                <p>Nenhum dado encontrado no banco. Clique em "Atualizar Dados" para popular a tabela.</p>
+                <p>Nenhum dado encontrado no banco ou para o filtro informado. Clique em "Atualizar Dados" para popular a tabela.</p>
             <?php endif; ?> 
         </div>
     </div>

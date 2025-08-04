@@ -22,3 +22,4 @@ mysql-data/
 
 .vscode/
 .idea/
+.pytest_cache/

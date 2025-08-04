@@ -1,17 +1,10 @@
 from fastapi.testclient import TestClient
-# O ponto (.) antes de 'main' é importante, significa "do mesmo diretório, importe o arquivo main"
-from .main import app 
+from main import app  # Importação simples, pois estão no mesmo diretório
 
-# Criamos um cliente que vai simular as requisições à nossa API
 client = TestClient(app)
 
-def test_get_players_endpoint():
-    # Faz uma requisição GET para o endpoint /players
+def test_get_players_endpoint_retorna_ok_e_lista():
     response = client.get("/players")
 
-    # --- SEU DESAFIO AQUI ---
-    # Adicione as duas verificações (asserts) aqui.
-    # 1. Verifique se o status code da resposta é 200.
-    # 2. Verifique se o corpo da resposta (response.json()) é do tipo lista (list).
-    
-    # Se os asserts passarem, o teste é um sucesso!
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)

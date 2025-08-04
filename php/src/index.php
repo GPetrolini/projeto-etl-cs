@@ -37,8 +37,10 @@ if (isset($_SESSION['flash_message'])) {
     unset($_SESSION['flash_message']);
 }
 $searchTerm = $_GET['search'] ?? '';
+$currentPage = max(1, (int)($_GET['page'] ?? 1));
 
-$data = $apiService->pegaPlayersDoBancoDeDados($searchTerm);
+$data = $apiService->pegaPlayersDoBancoDeDados($searchTerm, $currentPage);
+
 if ($data === null) {
     $errorMessage = "Não foi possível buscar os dados da API de jogadores.";
 }

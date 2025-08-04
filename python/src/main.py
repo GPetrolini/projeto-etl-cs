@@ -59,7 +59,7 @@ def run_etl():
     return {"message": f"ETL concluído! {len(dfColunas)} linhas carregadas na tabela '{tabela_destino}'."}
 
 @app.get("/players")
-def get_players(search_name:  str | None = None):
+def get_players(search_name: str | None = None, page: int = 1, size: int = 10):
     # busca e retorna todos os jogadores do banco de dados
     try:
         eng = get_db_engine()
@@ -68,9 +68,15 @@ def get_players(search_name:  str | None = None):
 
         if search_name:
             df = df[df['name'].str.contains(search_name, case=False, na=False)]
+        page = max(1, page)
+        size = max(1, size)
         
-        # Converte o resultado para um formato JSON amigável
-        return df.to_dict('records')
+        start_index = (page - 1) * size
+        end_index = start_index + size
+
+        df_paginated = df.iloc[start_index:end_index]
+        
+        return df_paginated.to_dict('records')
     except SQLAlchemyError as e:
         raise HTTPException(status_code=404, detail=f"Não foi possível buscar os dados da tabela 'player_stats': {e}")
 
