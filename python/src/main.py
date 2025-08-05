@@ -6,6 +6,17 @@ from sqlalchemy.exc import SQLAlchemyError
 
 app = FastAPI()
 
+# Esta função define a categoria (tier) do jogador com base no score
+def define_tier(score):
+    if score > 400:
+        return 'S'
+    elif score > 250:
+        return 'A'
+    elif score > 150:
+        return 'B'
+    else:
+        return 'C'
+
 def get_db_engine():
     # Esta função busca as informações do .env e cria a conexão com o banco.
     db_password = os.getenv('DB_PASSWORD')
@@ -47,6 +58,9 @@ def run_etl():
         (dfColunas['death_count'] * 1.5) +
         (dfColunas['headshot_count'] * 0.5)
     ).round(2)
+    
+    # Aplica a função para criar a coluna 'tier'
+    dfColunas['tier'] = dfColunas['impact_score'].apply(define_tier)
 
     # Carga dos dados no banco
     try:
@@ -67,7 +81,11 @@ def get_players(search_name: str | None = None, page: int = 1, size: int = 10):
         df = pd.read_sql(query, eng)
 
         if search_name:
-            df = df[df['name'].str.contains(search_name, case=False, na=False)]
+            df = df[
+                df['name'].str.contains(search_name, case=False, na=False) |
+                df['team_name'].str.contains(search_name, case=False, na=False)
+            ]
+        
         page = max(1, page)
         size = max(1, size)
         

@@ -33,4 +33,8 @@ final class PlayerStatsConstants
     public const IMPACT_SCORE = 'impact_score';
     
     public const IMPACT_SCORE_LABEL = 'Score';
+
+    public const TIER = 'tier';
+
+    public const TIER_LABEL = 'Tier';
 }

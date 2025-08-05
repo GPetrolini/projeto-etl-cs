@@ -53,6 +53,7 @@
                             <th><?php echo PlayerStatsConstants::HEADSHOT_COUNT_LABEL; ?></th>
                             <th><?php echo PlayerStatsConstants::KD_RATIO_LABEL; ?></th>
                             <th><?php echo PlayerStatsConstants::IMPACT_SCORE_LABEL; ?></th>
+                            <th><?php echo PlayerStatsConstants::TIER_LABEL; ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +67,7 @@
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::HEADSHOT_COUNT]); ?></td>
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::KD_RATIO]); ?></td>
                                 <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::IMPACT_SCORE]); ?></td>
+                                <td><?php echo htmlspecialchars($jogador[PlayerStatsConstants::TIER]); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -82,7 +84,7 @@
                 </div>
 
             <?php else: ?>
-                <p>Nenhum dado encontrado no banco ou para o filtro informado. Clique em "Atualizar Dados" para popular a tabela.</p>
+                <p>Nenhum dado encontrado no banco ou para o filtro informado.</p>
             <?php endif; ?> 
         </div>
     </div>
