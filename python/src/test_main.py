@@ -7,7 +7,13 @@ def test_get_players_endpoint_retorna_ok_e_lista():
     response = client.get("/players")
 
     assert response.status_code == 200
+
+    data = response.json()
     assert isinstance(response.json(), list)
+
+    if len(data) > 0:
+        primeiro_jogador = data[0]
+        assert 'tier' in primeiro_jogador
 
 def test_get_players_com_filtro_retorna_dados_corretos():
     """
