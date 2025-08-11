@@ -83,3 +83,18 @@ h1 {
     display: flex;
     justify-content: space-between;
 }
+
+body.bg-dark {
+    background-color: #212529 !important;
+}
+
+.search-input.text-white::placeholder {
+    color: #ccc;
+}
+
+.search-input.text-white:focus {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
