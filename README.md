@@ -29,6 +29,7 @@ Este projeto é um pipeline de dados **ETL (Extração, Transformação e Carga)
 ### 🏛️ Arquitetura
 
 O projeto utiliza uma arquitetura de microsserviços orquestrada pelo Docker Compose:
+
 [ Usuário ] <--> [ Frontend PHP ] <--> [ API Python (FastAPI + Pandas) ] <--> [ Banco de Dados MySQL ]
 
 -   O **Frontend PHP** é a camada de apresentação, responsável por interagir com o usuário e consumir a API.
